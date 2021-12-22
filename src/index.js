@@ -1,7 +1,11 @@
 // write your code here
-function init() {
+function loadRamen() {
     fetch('http://localhost:3000/ramens')
     .then((res) => res.json())
+    .then((data) => {
+        document.querySelector('#ramen-menu').innerHTML = ''
+        return data
+    })
     .then(renderRamen)
     .catch(() => alert('Something\'s wrong.'))
 }
@@ -58,13 +62,10 @@ function postNewRamen(e) {
         },
         body: JSON.stringify(newRamen)
     })
-    .then(() => alert('Ramen posted! Pls refresh.'))
+    .then(loadRamen)
     .catch(() => alert('Couldn\'t post.'))
 
     e.target.reset()
-    
-    // how to reset menu pics without refreshing?
-    // init()
 }
 
 function editRamen(e) {    
@@ -92,7 +93,7 @@ function editRamen(e) {
             comment: newComment
         })
     })
-    .then(() => alert('Ramen updated! Pls refresh'))
+    .then(loadRamen)
     .catch(() => alert('Couldn\'t update.'))
 
     e.target.reset()
@@ -103,11 +104,11 @@ function deleteRamen(e) {
     fetch(`http://localhost:3000/ramens/${ramen.id}`, {
         method: 'DELETE'
     })
-    .then(() => alert('Ramen deleted! Pls refresh'))
+    .then(loadRamen)
     .catch(() => alert('Couldn\'t delete.'))
 }
 
 document.querySelector('#edit-ramen').addEventListener('submit', editRamen)
 document.querySelector('#new-ramen').addEventListener('submit', postNewRamen)
 
-init()
+loadRamen()
