@@ -1,17 +1,13 @@
 // write your code here
-function loadRamen() {
+function init() {
     fetch('http://localhost:3000/ramens')
     .then((res) => res.json())
     .then((json) => {
-        // console.log(json)
         renderRamen(json)
-        //renderRamen(json)
     })
 }
 
 function renderRamen(ramen) {
-    //console.log(ramen)
-
     document.querySelector('.detail-image').src = ramen[0].image
     document.querySelector('.name').textContent = ramen[0].name
     document.querySelector('.restaurant').textContent = ramen[0].restaurant
@@ -37,13 +33,19 @@ function renderRamen(ramen) {
             editForm.id = 'edit-form'
 
         })
-    })
-    
-    
+    })   
 }
 
+document.querySelector('#edit-ramen').addEventListener('submit', (e) => {
+    e.preventDefault()
+    
+    document.querySelector('#rating-display').textContent = e.target[0].value
+    document.querySelector('#comment-display').textContent = e.target[1].value
 
-document.querySelector('form').addEventListener('submit',(e) => {
+    e.target.reset()
+})
+
+document.querySelector('#new-ramen').addEventListener('submit',(e) => {
     e.preventDefault()
 
     const newRamen = {
@@ -67,8 +69,6 @@ document.querySelector('form').addEventListener('submit',(e) => {
         document.querySelector('#comment-display').textContent = newRamen.comment
     })
 
-    console.log(newRamen)
-
     // fetch('http://localhost:3000/ramens', {
     //     method: 'post',
     //     body: JSON.stringify(newRamen)
@@ -79,4 +79,4 @@ document.querySelector('form').addEventListener('submit',(e) => {
     e.target.reset()
 })
 
-loadRamen()
+init()
