@@ -23,7 +23,8 @@ header {
 
 #ramen-menu {
   display: flex;
-  overflow-x: auto;
+  flex-wrap: wrap;
+  overflow-x: auto !important;
   margin: 1rem 0;
   max-width: calc(100vw - 2rem);
 }
