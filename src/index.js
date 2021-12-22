@@ -75,8 +75,6 @@ function editRamen(e) {
     const newRating = e.target[0].value
     const newComment = e.target[1].value
     const updatedId = document.querySelector('.detail-image').id
-console.log(document.querySelector('.detail-image'))
-    console.log(updatedId)
 
     //show the update from inputs (until they refresh)
     document.querySelector('#rating-display').textContent = newRating
@@ -102,12 +100,11 @@ console.log(document.querySelector('.detail-image'))
 
 function deleteRamen(e) {
     const ramen = e.target.previousSibling
-    console.log(ramen)
     fetch(`http://localhost:3000/ramens/${ramen.id}`, {
         method: 'DELETE'
     })
     .then(() => alert('Ramen deleted! Pls refresh'))
-    .catch(() => Error('Couldn\'t delete.'))
+    .catch(() => alert('Couldn\'t delete.'))
 }
 
 document.querySelector('#edit-ramen').addEventListener('submit', editRamen)
